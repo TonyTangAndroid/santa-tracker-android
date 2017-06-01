@@ -7,6 +7,16 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.tools
 
+
+	signingConfigs {
+        tony_dev_sign {
+            keyAlias 'tony_dev_sign'
+            keyPassword 'tony_dev_sign'
+            storeFile file('tony_dev_sign.jks')
+            storePassword 'tony_dev_sign'
+        }
+    }
+
     defaultConfig {
         applicationId "com.google.android.apps.santatracker"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -23,9 +33,11 @@ android {
             versionNameSuffix "-debug"
             // Enabling multidex support.
             multiDexEnabled true
+            signingConfig signingConfigs.tony_dev_sign
         }
 
         release {
+        	signingConfig signingConfigs.tony_dev_sign
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.txt'
@@ -71,6 +83,7 @@ android {
             compatibleScreens 'small', 'normal', 'large', 'xlarge'
         }
     }
+    buildToolsVersion '25.0.3'
 }
 // Apply signing configurations, keys and other non-version-controlled things
 if (file('../internal/santa-tracker.gradle').exists()) {
